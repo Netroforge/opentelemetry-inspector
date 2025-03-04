@@ -1,0 +1,49 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+
+exporters:
+  debug:
+    verbosity: detailed
+  otlphttp/json:
+    endpoint: "http://host.docker.internal:8080/otlp/http/json"
+    encoding: json
+  otlphttp/proto:
+    endpoint: "http://host.docker.internal:8080/otlp/http/proto"
+
+service:
+  pipelines:
+    metrics:
+      receivers:
+        - otlp
+      processors:
+        - batch
+      exporters:
+        - debug
+        - otlphttp/json
+        - otlphttp/proto
+    traces:
+      receivers:
+        - otlp
+      processors:
+        - batch
+      exporters:
+        - debug
+        - otlphttp/json
+        - otlphttp/proto
+    logs:
+      receivers:
+        - otlp
+      processors:
+        - batch
+      exporters:
+        - debug
+        - otlphttp/json
+        - otlphttp/proto

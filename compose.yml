@@ -1,0 +1,10 @@
+services:
+  opentelemetry-inspector-collector:
+    container_name: opentelemetry-inspector-collector
+    image: otel/opentelemetry-collector-contrib:0.120.0
+    volumes:
+      - ./docker/collector-config.yaml:/collector-config.yaml
+    command: ["--config=/collector-config.yaml"]
+    ports:
+      - "4317:4317"
+      - "4318:4318"

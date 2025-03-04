@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: opentelemetry-inspector
+  thymeleaf:
+    cache: false
+    prefix: classpath:/static/public/
+
+server:
+  compression:
+    enabled: true
+    # opt in to content types
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    # not worth the CPU cycles at some point, probably
+    min-response-size: 10240
